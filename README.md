@@ -2,7 +2,7 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pullbox`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+TODO: Describe gem in detail
 
 ## Installation
 
@@ -16,7 +16,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+TODO: Write usage instructions
 
 ## Development
 
@@ -26,7 +26,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/pullbox.
+Bug reports and pull requests are welcome on GitHub at https://github.com/the-pulli/pullbox.
 
 ## License
 
