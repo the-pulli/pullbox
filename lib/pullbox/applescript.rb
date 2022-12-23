@@ -22,7 +22,7 @@ module Pullbox
 
     def self.display_dialog(message, title, defaults = {})
       defaults = { answer: false, buttons: %w[OK] }.merge(defaults)
-      answer = defaults[:answer] == true ? ' default answer ""' : ''
+      answer = defaults[:answer] == true ? ' default answer ""' : ""
       buttons = 'buttons {"'
       buttons << defaults[:buttons].join('", "')
       buttons << "\"} default button \"#{defaults[:buttons].last}\""
@@ -38,7 +38,7 @@ module Pullbox
       APS
       answer = `osascript -e '#{apple_script}'`.strip
 
-      exit! if answer == ''
+      exit! if answer == ""
 
       answer
     end

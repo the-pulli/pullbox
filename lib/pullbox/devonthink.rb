@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'applescript'
+require_relative "applescript"
 
 # Library for several classes
 module Pullbox
