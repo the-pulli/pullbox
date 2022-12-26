@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["PuLLi"]
   spec.email = ["the@pulli.dev"]
 
-  spec.summary = "Just a small toolbox for AppleScript and DEVONthink"
-  spec.description = "Enables you to write ruby code for AppleScript and DEVONthink features."
+  spec.summary = "Just a small toolbox for AppleScript, DEVONthink and MailMate"
+  spec.description = "Enables you to write ruby code for AppleScript, DEVONthink and MailMate features."
   spec.homepage = "https://github.com/the-pulli/pullbox"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
