@@ -13,11 +13,11 @@ module Pullbox
     end
 
     def self.display_notification(message, title)
-      apple_script = <<~APS.strip
+      applescript = <<~APS.strip
         #{intro}
         display notification "#{message}" with title "#{title}"
       APS
-      system "osascript -e '#{apple_script}'"
+      system "osascript -e '#{applescript}'"
     end
 
     def self.display_dialog(message, title, defaults = {})
@@ -26,7 +26,7 @@ module Pullbox
       buttons = 'buttons {"'
       buttons << defaults[:buttons].join('", "')
       buttons << "\"} default button \"#{defaults[:buttons].last}\""
-      apple_script = <<~APS.strip
+      applescript = <<~APS.strip
         #{intro}
         try
           return text returned of (display dialog "#{message}"#{buttons}#{answer} with title "#{title}")
@@ -36,11 +36,29 @@ module Pullbox
           end if
         end try
       APS
-      answer = `osascript -e '#{apple_script}'`.strip
+      answer = `osascript -e '#{applescript}'`.strip
 
       exit! if answer == ""
 
       answer
+    end
+
+    def self.export_playlist(name, to, format = :xml)
+      allowed_formats = {
+        m3u: "M3U",
+        m3u8: "M3U8",
+        plain_text: "plain text",
+        unicode_text: "Unicode text",
+        xml: "XML"
+      }
+      raise ArgumentError, "Export format not supported" unless allowed_formats.keys.include? format
+
+      format = allowed_formats[format]
+      applescript = <<~APS.strip
+        #{intro}
+        tell application "Music" to export playlist "#{name}" as #{format} to "#{to}"
+      APS
+      system "osascript -e '#{applescript}'"
     end
   end
 end
