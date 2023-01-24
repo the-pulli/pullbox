@@ -22,41 +22,49 @@ module Pullbox
 
     def self.display_dialog(message, title, defaults = {})
       defaults = { answer: false, buttons: %w[OK] }.merge(defaults)
-      answer = defaults[:answer] == true ? ' default answer ""' : ""
+      answer = defaults[:answer] ? ' default answer ""' : ""
+      default_button = defaults[:buttons].last
+      cancel_button = defaults[:buttons].first
       buttons = 'buttons {"'
-      buttons << defaults[:buttons].join('", "')
-      buttons << "\"} default button \"#{defaults[:buttons].last}\""
+      button_construct = buttons.dup
+      button_construct << defaults[:buttons].join('", "')
+      button_construct << "\"} default button \"#{default_button}\" cancel button \"#{cancel_button}\""
       applescript = <<~APS.strip
         #{intro}
         try
-          return text returned of (display dialog "#{message}"#{buttons}#{answer} with title "#{title}")
+          set theReturnedValue to (display dialog "#{message}" #{button_construct}#{answer} with title "#{title}")
+          if button returned of theReturnedValue is "#{default_button}" then
+            if text returned of theReturnedValue is not "" then
+              return text returned of theReturnedValue
+            else
+              return
+            end if
+          end if
         on error errorMessage number errorNumber
           if errorNumber is equal to -128 -- aborted by user
-            return ""
+            return
           end if
         end try
       APS
       answer = `osascript -e '#{applescript}'`.strip
 
-      exit! if answer == ""
+      exit(0) if answer.empty?
 
       answer
     end
 
     def self.export_playlist(name, to, format = :xml)
-      allowed_formats = {
+      formats = {
         m3u: "M3U",
         m3u8: "M3U8",
         plain_text: "plain text",
         unicode_text: "Unicode text",
         xml: "XML"
       }
-      raise ArgumentError, "Export format not supported" unless allowed_formats.keys.include? format
 
-      format = allowed_formats[format]
       applescript = <<~APS.strip
         #{intro}
-        tell application "Music" to export playlist "#{name}" as #{format} to "#{to}"
+        tell application "Music" to export playlist "#{name}" as #{formats.fetch(format, 'XML')} to "#{to}"
       APS
       system "osascript -e '#{applescript}'"
     end
