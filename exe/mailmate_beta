@@ -12,14 +12,16 @@ raise "MailMate not installed." unless File.exist? mailmate
 result = Plist.parse_xml(mailmate)
 raise "MailMate not properly installed." if result.nil?
 
-regexp = /(?<number>\d+)/
+regexp1 = /\(r(?<number>\d+)\)/i
+regexp2 = /(?<number>\d+)/
 long_version = result["CFBundleGetInfoString"]
-version = long_version.match(regexp)
+version = long_version.match(regexp1)
 
 doc = Nokogiri::HTML(Net::HTTP.get(URI("https://updates.mailmate-app.com/archives/")))
 doc.xpath("(//table//tr//td/a)[last()]").each do |current_release|
-  current_version = current_release.content.match(regexp)
+  current_version = current_release.content.match(regexp2)
 
+  p version[:number]
   if current_version[:number].to_i > version[:number].to_i
     Pullbox::AppleScript.display_dialog "Update available.\nVersion: #{current_version}", "MailMate"
   end
