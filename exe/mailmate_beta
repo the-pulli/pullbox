@@ -21,7 +21,6 @@ doc = Nokogiri::HTML(Net::HTTP.get(URI("https://updates.mailmate-app.com/archive
 doc.xpath("(//table//tr//td/a)[last()]").each do |current_release|
   current_version = current_release.content.match(regexp2)
 
-  p version[:number]
   if current_version[:number].to_i > version[:number].to_i
     Pullbox::AppleScript.display_dialog "Update available.\nVersion: #{current_version}", "MailMate"
   end

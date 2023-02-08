@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.7] - 2023-02-08
+
+- Remove debug output
+
 ## [0.1.6] - 2023-02-08
 
 - Fix issue with regex in `mailmate_beta`
