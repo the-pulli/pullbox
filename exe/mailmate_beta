@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "English"
+require "net/http"
+require "nokogiri"
 require "plist"
 require_relative "../lib/pullbox/applescript"
 
@@ -11,13 +12,15 @@ raise "MailMate not installed." unless File.exist? mailmate
 result = Plist.parse_xml(mailmate)
 raise "MailMate not properly installed." if result.nil?
 
+regexp = /(?<number>\d+)/
 long_version = result["CFBundleGetInfoString"]
-version = long_version.match(/\(r(?<number>\d+)\)/i)
-following_release = version[:number].to_i.next
-search_string = "MailMate_r#{following_release}.tbz"
+version = long_version.match(regexp)
 
-content = `curl -s https://updates.mailmate-app.com/archives/ | grep #{search_string}`
+doc = Nokogiri::HTML(Net::HTTP.get(URI("https://updates.mailmate-app.com/archives/")))
+doc.xpath("(//table//tr//td/a)[last()]").each do |current_release|
+  current_version = current_release.content.match(regexp)
 
-if !content.empty? && $CHILD_STATUS.exited?
-  Pullbox::AppleScript.display_dialog "Update available.\nVersion: #{following_release}", "MailMate"
+  if current_version[:number].to_i > version[:number].to_i
+    Pullbox::AppleScript.display_dialog "Update available.\nVersion: #{current_version}", "MailMate"
+  end
 end
