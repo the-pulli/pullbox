@@ -27,7 +27,7 @@ module Pullbox
       cancel_button = defaults[:buttons].first
       buttons = 'buttons {"'
       button_construct = buttons.dup
-      button_construct << defaults[:buttons].join('", "')
+button_construct << defaults[:buttons].join('", "')
       button_construct << "\"} default button \"#{default_button}\" cancel button \"#{cancel_button}\""
       applescript = <<~APS.strip
         #{intro}
@@ -65,6 +65,33 @@ module Pullbox
       applescript = <<~APS.strip
         #{intro}
         tell application "Music" to export playlist "#{name}" as #{formats.fetch(format, 'XML')} to "#{to}"
+      APS
+      system "osascript -e '#{applescript}'"
+    end
+
+    def self.applications_folder
+      applescript = <<-APS.strip
+        #{intro}
+
+        set theApplicationsFolder to path to applications folder
+        return (POSIX path) of theApplicationsFolder
+      APS
+      `osascript -e '#{applescript}'`.strip
+    end
+
+    def self.move_app(name, app_path)
+      applescript = <<-APS.strip
+        #{intro}
+
+        set theApplicationsFolder to path to applications folder
+        try
+          tell application "#{name}" to quit
+        on error errMsg
+        end try
+        delay 3
+        tell application "Finder"
+          set theResult to move (POSIX file "#{app_path}") as alias to theApplicationsFolder with replacing
+        end tell
       APS
       system "osascript -e '#{applescript}'"
     end

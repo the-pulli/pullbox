@@ -14,6 +14,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
+Includes a executable `mailmate_beta` which checks and installs MailMate prerelease automatically for you.
+For the AppleScript and DEVONthink functions available check the corresponding source code.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/the-pulli/pullbox.

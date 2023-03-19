@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.8] - 2023-03-19
+
+- `mailmate_beta` improved. Now downloads and installs beta releasess automatically.
+
 ## [0.1.7] - 2023-02-08
 
 - Remove debug output
