@@ -79,7 +79,7 @@ button_construct << defaults[:buttons].join('", "')
       `osascript -e '#{applescript}'`.strip
     end
 
-    def self.move_app(name, app_path)
+    def self.move_app(name, app_path, launch = true)
       applescript = <<-APS.strip
         #{intro}
 
@@ -90,8 +90,11 @@ button_construct << defaults[:buttons].join('", "')
         end try
         delay 3
         tell application "Finder"
-          set theResult to move (POSIX file "#{app_path}") as alias to theApplicationsFolder with replacing
+          move (POSIX file "#{app_path}") as alias to theApplicationsFolder with replacing
         end tell
+        if #{launch} then
+          tell application "#{name}" to activate
+        end if
       APS
       system "osascript -e '#{applescript}'"
     end
