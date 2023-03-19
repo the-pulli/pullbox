@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.9] - 2023-03-19
+
+- Add option to start app in `move_app`.
+
 ## [0.1.8] - 2023-03-19
 
 - `mailmate_beta` improved. Now downloads and installs beta releasess automatically.
