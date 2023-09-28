@@ -1,0 +1,29 @@
+PATH
+  remote: .
+  specs:
+    pullbox (0.1.9)
+      nokogiri (~> 1.12)
+      plist (~> 3.6)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.18.0)
+    nokogiri (1.14.2-arm64-darwin)
+      racc (~> 1.4)
+    plist (3.7.0)
+    racc (1.6.2)
+    rake (13.0.6)
+    thor (1.2.2)
+
+PLATFORMS
+  arm64-darwin-22
+
+DEPENDENCIES
+  minitest (~> 5.0)
+  pullbox!
+  rake (~> 13.0)
+  thor (~> 1.2)
+
+BUNDLED WITH
+   2.4.10

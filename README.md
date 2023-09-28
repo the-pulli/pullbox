@@ -6,15 +6,19 @@
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add pullbox
+```bash
+bundle add pullbox
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install pullbox
+```bash
+gem install pullbox
+```
 
 ## Usage
 
-Includes a executable `mailmate_beta` which checks and installs MailMate prerelease automatically for you.
+Includes a executable `mailmate`. Use it via `mailmate beta` to check if the current MailMate prerelease is installed and if not it installs it automatically for you.
 For the AppleScript and DEVONthink functions available check the corresponding source code.
 
 ## Contributing
