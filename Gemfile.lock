@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    pullbox (0.1.10)
+    pullbox (0.1.11)
       nokogiri (~> 1.12)
       plist (~> 3.6)
+      thor (~> 1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -16,7 +17,7 @@ GEM
     plist (3.7.0)
     racc (1.6.2)
     rake (13.0.6)
-    thor (1.2.2)
+    thor (1.2.1)
 
 PLATFORMS
   arm64-darwin-22
@@ -26,7 +27,6 @@ DEPENDENCIES
   minitest (~> 5.0)
   pullbox!
   rake (~> 13.0)
-  thor (~> 1.2)
 
 BUNDLED WITH
    2.4.10

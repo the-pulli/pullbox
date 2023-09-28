@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.10 - 0.1.12] - 2023-09-28
+
+- Refactor of `mailmate_beta`, usage is now `mailmate beta`
+
 ## [0.1.9] - 2023-03-19
 
 - Add option to start app in `move_app`.
